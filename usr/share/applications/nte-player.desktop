@@ -1,16 +1,13 @@
 [Desktop Entry]
-Comment=NTE Style Player
-Comment[zh_CN]=异环车载样式播放器
-Exec=/usr/bin/python3 /usr/share/nte-player/app.py
-Icon=gnome-player
 Name=NTE Player
 Name[zh_CN]=NTE播放器
-NoDisplay=false
-Path=
+Comment=NTE Style Player
+Comment[zh_CN]=异环车载样式播放器
+Icon=gnome-player
+Exec=/usr/bin/python3 /usr/share/nte-player/app.py
 PrefersNonDefaultGPU=false
-StartupNotify=true
+StartupNotify=false
 Terminal=false
-TerminalOptions=
 Type=Application
-X-KDE-SubstituteUID=false
-X-KDE-Username=
+Categories=AudioVideo;
+StartupNotify=true
