@@ -99,7 +99,7 @@ def resource_path(relative_path):
       工作目录的绝对路径。
 
     参数:
-        relative_path: 相对资源名，例如 "prev.png"、"misans.ttf"。
+        relative_path: 相对资源名，例如 "/usr/share/nte-player/prev.png"、"misans.ttf"。
     返回:
         资源文件的绝对路径字符串。
     """
@@ -581,7 +581,7 @@ class DesktopMusicPlayer(QtWidgets.QWidget):
         self.pill_layout.setSpacing(12)
 
         # 列表面板开关按钮，最左侧入口
-        self.btn_list = self.create_img_btn("list.png", self.toggle_playlist_panel)
+        self.btn_list = self.create_img_btn("/usr/share/nte-player/list.png", self.toggle_playlist_panel)
         self.pill_layout.addWidget(self.btn_list)
 
         # 标题 + 频谱 的纵向小布局：上方歌名滚动，下方频谱条
@@ -603,11 +603,11 @@ class DesktopMusicPlayer(QtWidgets.QWidget):
         self.pill_layout.addStretch()
 
         # 右侧一组功能按钮：上一首 / 播放暂停 / 下一首 / 播放模式 / 全局收藏过滤
-        self.btn_prev = self.create_img_btn("prev.png", self.prev_song)
-        self.btn_play = self.create_img_btn("continue.png", self.toggle_play)
-        self.btn_next = self.create_img_btn("next.png", self.next_song)
-        self.btn_mode = self.create_img_btn("list-loop.png", self.toggle_play_mode)
-        self.btn_global_like = self.create_img_btn("love.png", self.toggle_global_liked_filter)
+        self.btn_prev = self.create_img_btn("/usr/share/nte-player/prev.png", self.prev_song)
+        self.btn_play = self.create_img_btn("/usr/share/nte-player/continue.png", self.toggle_play)
+        self.btn_next = self.create_img_btn("/usr/share/nte-player/next.png", self.next_song)
+        self.btn_mode = self.create_img_btn("/usr/share/nte-player/list-loop.png", self.toggle_play_mode)
+        self.btn_global_like = self.create_img_btn("/usr/share/nte-player/love.png", self.toggle_global_liked_filter)
 
         # 依次按顺序、等间距(12px)挂载，彻底摆脱上一版不对称挤压问题
         self.pill_layout.addWidget(self.btn_prev)
@@ -938,13 +938,13 @@ class DesktopMusicPlayer(QtWidgets.QWidget):
         if pygame.mixer.music.get_busy() and not self.is_paused:
             pygame.mixer.music.pause()
             self.is_paused = True
-            self.set_btn_icon(self.btn_play, "continue.png")
+            self.set_btn_icon(self.btn_play, "/usr/share/nte-player/continue.png")
             self.spectrum.set_playing(False)
         else:
             # 暂停状态 -> 恢复播放
             pygame.mixer.music.unpause()
             self.is_paused = False
-            self.set_btn_icon(self.btn_play, "pause.png")
+            self.set_btn_icon(self.btn_play, "/usr/share/nte-player/pause.png")
             self.spectrum.set_playing(True)
         # 状态变化后刷新列表（活动行的边框/字色会跟着变）
         self.refresh_list_ui()
@@ -971,7 +971,7 @@ class DesktopMusicPlayer(QtWidgets.QWidget):
 
             # 同步标题、按钮图标、频谱状态
             self.lbl_title.setText(song["name"])
-            self.set_btn_icon(self.btn_play, "pause.png")
+            self.set_btn_icon(self.btn_play, "/usr/share/nte-player/pause.png")
             self.spectrum.set_playing(True)
 
             # 把当前曲目时长写入频谱组件，并清空旧的包络数据
@@ -1039,18 +1039,18 @@ class DesktopMusicPlayer(QtWidgets.QWidget):
         """循环切换三种播放模式，并刷新模式按钮图标。"""
         self.play_mode = (self.play_mode + 1) % 3
         if self.play_mode == 0:
-            self.set_btn_icon(self.btn_mode, "list-loop.png")
+            self.set_btn_icon(self.btn_mode, "/usr/share/nte-player/list-loop.png")
         elif self.play_mode == 1:
-            self.set_btn_icon(self.btn_mode, "loop.png")
+            self.set_btn_icon(self.btn_mode, "/usr/share/nte-player/loop.png")
         else:
-            self.set_btn_icon(self.btn_mode, "random.png")
+            self.set_btn_icon(self.btn_mode, "/usr/share/nte-player/random.png")
 
     def toggle_global_liked_filter(self):
         """切换"只看我喜欢"过滤器：影响 play_queue 与列表 UI。"""
         self.global_liked_filter = not self.global_liked_filter
 
         # 用爱心实心/空心两种图标传达开关状态
-        icon_name = "love-filled.png" if self.global_liked_filter else "love.png"
+        icon_name = "/usr/share/nte-player/love-filled.png" if self.global_liked_filter else "/usr/share/nte-player/love.png"
         self.set_btn_icon(self.btn_global_like, icon_name)
 
         self.update_play_queue()
@@ -1096,7 +1096,7 @@ class DesktopMusicPlayer(QtWidgets.QWidget):
             layout.setSpacing(6)
 
             # 收藏按钮：根据当前 liked 状态选实心/空心爱心图标
-            like_icon = "love-filled.png" if song["liked"] else "love.png"
+            like_icon = "/usr/share/nte-player/love-filled.png" if song["liked"] else "/usr/share/nte-player/love.png"
             # 用默认参数捕获 song，避免 lambda 闭包共享变量陷阱
             btn_like = self.create_img_btn(like_icon, lambda checked=False, s=song: self.toggle_song_liked(s))
             btn_like.setFixedSize(int(14 * self.scale_factor), int(14 * self.scale_factor))
